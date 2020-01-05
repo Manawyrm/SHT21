@@ -7,6 +7,8 @@
  
 #include <Arduino.h>
 #include <Wire.h>
+
+#define SHT21_SLEEP // use LowPower.h to use power down sleep instead of delay()
 #include "SHT21.h"
 
 SHT21 sht21 = SHT21();

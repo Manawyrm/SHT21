@@ -13,6 +13,10 @@
 #include "Arduino.h"
 #include "Wire.h"
 
+#ifdef SHT21_SLEEP
+#include "LowPower.h"
+#endif
+
 #define SHT21_DEFAULT_ADDR 0x40 /**< SHT21 Default Address */
 #define SHT21_MEAS_NOHOLD_TEMP 0xF3
 #define SHT21_MEAS_NOHOLD_HUMI 0xF5

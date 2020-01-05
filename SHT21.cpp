@@ -87,7 +87,13 @@ bool SHT21::startMeasurement(void) {
   uint8_t readbuffer[3];
 
   writeCommand(SHT21_MEAS_NOHOLD_TEMP);
-  delay(85);
+
+  #ifdef SHT21_SLEEP
+    LowPower.powerDown(SLEEP_120MS, ADC_OFF, BOD_OFF);
+  #else
+    delay(85);
+  #endif
+
   _wire->requestFrom(_i2caddr, sizeof(readbuffer));
   if (_wire->available() != sizeof(readbuffer))
     return false;
@@ -103,7 +109,13 @@ bool SHT21::startMeasurement(void) {
   temp = (- 4685L + (17572L * stemp) / 65536L) / 10;
 
   writeCommand(SHT21_MEAS_NOHOLD_HUMI);
-  delay(29);
+
+  #ifdef SHT21_SLEEP
+    LowPower.powerDown(SLEEP_30MS, ADC_OFF, BOD_OFF);  
+  #else
+    delay(29);
+  #endif
+
   _wire->requestFrom(_i2caddr, sizeof(readbuffer));
   if (_wire->available() != sizeof(readbuffer))
     return false;
